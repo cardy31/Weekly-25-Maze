@@ -7,7 +7,7 @@ class Player extends Maze{
     public Player(String mazePath) throws MazeException{
         super(mazePath);
         setPosition();
-        setCharacter(position);
+        setCharacter(position, 'B');
         System.out.println("Second");
     }
 
@@ -26,6 +26,9 @@ class Player extends Maze{
     }
 
     private boolean cordValid(int x, int y) {
+        if(x <= 0 || y <= 0)
+            return false;
+
         Character temp = getMaze()[y][x];
 
         return !(temp.equals('#'));
@@ -43,9 +46,17 @@ class Player extends Maze{
         if (cordValid(position.getX(), position.getY() - 1)) {
             deleteOldCharacter(position);
             position.decY();
-            setCharacter(position);
+            setCharacter(position, '^');
+        }
+        else if(cordValid(position.getX(), position.getY() - 2)) {
+            deleteOldCharacter(position);
+            position.decY();
+            setCharacter(position, '^');
+            Cords newWall = new Cords(position.getX(), position.getY() - 1);
+            setCharacter(newWall, '#');
         }
         else {
+            setCharacter(position, '^');
             System.out.println("Sorry, you can't move there");
         }
     }
@@ -54,9 +65,17 @@ class Player extends Maze{
         if (cordValid(position.getX(), position.getY() + 1)) {
             deleteOldCharacter(position);
             position.incY();
-            setCharacter(position);
+            setCharacter(position, 'v');
+        }
+        else if(cordValid(position.getX(), position.getY() + 2)) {
+            deleteOldCharacter(position);
+            position.incY();
+            setCharacter(position, 'v');
+            Cords newWall = new Cords(position.getX(), position.getY() + 1);
+            setCharacter(newWall, '#');
         }
         else {
+            setCharacter(position, 'v');
             System.out.println("Sorry, you can't move there");
         }
     }
@@ -65,9 +84,17 @@ class Player extends Maze{
         if (cordValid(position.getX() - 1, position.getY())) {
             deleteOldCharacter(position);
             position.decX();
-            setCharacter(position);
+            setCharacter(position, '<');
+        }
+        else if(cordValid(position.getX() - 2, position.getY())) {
+            deleteOldCharacter(position);
+            position.decX();
+            setCharacter(position, '<');
+            Cords newWall = new Cords(position.getX() - 1, position.getY());
+            setCharacter(newWall, '#');
         }
         else {
+            setCharacter(position, '<');
             System.out.println("Sorry, you can't move there");
         }
     }
@@ -76,9 +103,17 @@ class Player extends Maze{
         if (cordValid(position.getX() + 1, position.getY())) {
             deleteOldCharacter(position);
             position.incX();
-            setCharacter(position);
+            setCharacter(position, '>');
+        }
+        else if(cordValid(position.getX() + 2, position.getY())) {
+            deleteOldCharacter(position);
+            position.incX();
+            setCharacter(position, '>');
+            Cords newWall = new Cords(position.getX() + 1, position.getY());
+            setCharacter(newWall, '#');
         }
         else {
+            setCharacter(position, '>');
             System.out.println("Sorry, you can't move there");
         }
     }

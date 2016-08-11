@@ -37,9 +37,8 @@ abstract class Maze {
         yMax = maze.length;
     }
 
-    void setCharacter(Cords position) {
-        maze[position.getY()][position.getX()] = 'B';
-        System.out.println("Character set!");
+    void setCharacter(Cords position, char newChar) {
+        maze[position.getY()][position.getX()] = newChar;
     }
 
     void deleteOldCharacter(Cords position) {
